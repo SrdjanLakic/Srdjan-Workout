@@ -18,12 +18,7 @@ class App {
     this._getposition();
     form.addEventListener('submit', this._newWorkout.bind(this));
 
-    inputType.addEventListener('change', function () {
-      inputElevation
-        .closest('.form__row')
-        .classList.toggle('form__row--hidden');
-      inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-    });
+    inputType.addEventListener('change', function () {});
   }
   _getposition() {
     if (navigator.geolocation)
@@ -56,7 +51,11 @@ class App {
     form.classList.remove('hidden');
     inputDistance.focus();
   }
-  _toggleElevationField() {}
+  _toggleElevationField() {
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+  }
+
   _newWorkout(e) {
     e.preventDefault();
     inputDistance.value =
@@ -65,7 +64,7 @@ class App {
       inputElevation.value =
         '';
 
-    const { lat, lng } = mapEvent.latlng;
+    const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
       .addTo(this.#map)
       .bindPopup(
