@@ -1,7 +1,5 @@
 'use strict';
 
-// prettier-ignore
-
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
@@ -20,14 +18,17 @@ if (navigator.geolocation)
       const coords = [latitude, longitude];
 
       const map = L.map('map').setView(coords, 13);
+
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily cusomizable.')
-        .openPopup();
+
+      map.on('click', function (mapEvent) {
+        console.log(mapEvent);
+        const { lat, lng } = mapEvent.latlng;
+        L.marker([lat, lng]).addTo(map).bindPopup('Workout').openPopup();
+      });
     },
 
     function () {
