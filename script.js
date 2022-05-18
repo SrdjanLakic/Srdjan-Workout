@@ -44,10 +44,6 @@ class Cycling extends Workout {
   }
 }
 
-const run1 = new Running([39, -12], 5.2, 24, 178);
-const cycling1 = new Cycling([39, -12], 27, 95, 523);
-
-console.log(run1, cycling1);
 class App {
   #mapEvent;
   #map;
@@ -95,12 +91,24 @@ class App {
   }
 
   _newWorkout(e) {
+    const validInputs = (...inputs) =>
+      inputs.every(inp => Number.isFinite(inp));
+
     e.preventDefault();
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = inputDuration.value;
+
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      if (!validInputs(distance, duration, cadence))
+        return alert('Inputs have to be positive numbers!');
+    }
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+      if (!validInputs(distance, duration, elevation))
+        return alert('Inputs have to be positive numbers!');
+    }
 
     const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
@@ -116,6 +124,12 @@ class App {
       )
       .setPopupContent('Workout')
       .openPopup();
+
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
   }
 }
 
