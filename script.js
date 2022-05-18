@@ -52,7 +52,7 @@ class App {
     this._getposition();
     form.addEventListener('submit', this._newWorkout.bind(this));
 
-    inputType.addEventListener('change', function () {});
+    inputType.addEventListener('change', this._toggleElevationField);
   }
   _getposition() {
     if (navigator.geolocation)
