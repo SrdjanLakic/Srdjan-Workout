@@ -121,10 +121,7 @@ class App {
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
 
-      if (
-        !validInputs(distance, duration, elevation) ||
-        !allPositive(distance, duration)
-      )
+      if (!validInputs(distance, duration, elevation))
         return alert('Inputs have to be positive numbers!');
 
       workout = new Cycling([lat, lng], distance, duration, elevation);
@@ -150,10 +147,10 @@ class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          className: `${workout.type}-popup`,
+          className: ` ${workout.type}-popup`,
         })
       )
-      .setPopupContent(workout)
+      .setPopupContent('workout')
       .openPopup();
   }
 }
