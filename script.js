@@ -63,8 +63,8 @@ class Cycling extends Workout {
     this._setDescription();
   }
   calcSpeed() {
-    this.calcSpeed = this.distance / (this.duration / 60);
-    return this.calcSpeed;
+    this.speed = this.distance / (this.duration / 60);
+    return this.speed;
   }
 }
 
@@ -110,6 +110,18 @@ class App {
     form.classList.remove('hidden');
     inputDistance.focus();
   }
+
+  _hideForm() {
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
+    form.style.display = 'none';
+    form.classList.add('hidden');
+    setTimeout(() => (form.style.display = 'gride')), 1000;
+  }
+
   _toggleElevationField() {
     inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
@@ -156,11 +168,7 @@ class App {
 
     this._renderWorkout(workout);
 
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
+    this._hideForm();
   }
   _renderWorkoutMarker(workout) {
     L.marker(workout.coords)
