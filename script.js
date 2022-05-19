@@ -117,7 +117,7 @@ class App {
       inputCadence.value =
       inputElevation.value =
         '';
-    form.style.display = 'none';
+    // form.style.display = 'none';
     form.classList.add('hidden');
     setTimeout(() => (form.style.display = 'gride')), 1000;
   }
@@ -134,7 +134,6 @@ class App {
 
     e.preventDefault();
 
-    // Get data from form
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
@@ -182,7 +181,9 @@ class App {
           className: ` ${workout.type}-popup`,
         })
       )
-      .setPopupContent('workout')
+      .setPopupContent(
+        `${workout.type === 'running' ? '🏃' : '🚴‍♀️'} ${workout.description}`
+      )
       .openPopup();
   }
   _renderWorkout(workout) {
